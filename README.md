@@ -33,3 +33,9 @@ After compiling and uploading to the Arduino UNO you can use the following butto
 
 
 And you can look at this video https://youtu.be/4BS07XFOi9w
+<br />
+Watch out!!
+<br />
+The soldering connections on the back of the MultiFunction Shield short-out on the USB connector on the Arduino UNO. Make shure you stick some isolation material on the back of the shield!
+<br />
+![Alt text](https://github.com/mrWheel/MultiFunctionalShield/blob/master/IMG_3403.JPG?raw=true "Isolate LED connections")
