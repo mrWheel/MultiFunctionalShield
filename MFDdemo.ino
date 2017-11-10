@@ -32,8 +32,9 @@ byte saveMode, actualMode = COUNTING_STOPPED;
 byte lastButton;
 char seconds = 0;
 char minutes = 0;
-uint32_t  delay1Sec, delay250ms;
+uint32_t  wait1Sec, wait250mSec;
 int walkingLed = 0;
+int potValue = 0;
 
 
 void scrollText(String text, int speed) {
@@ -99,9 +100,10 @@ void setup() {
 
   actualMode = COUNTING_STOPPED;
   saveMode   = COUNTING_STOPPED;
+  potValue   = analogRead(POT_PIN);
   
   MFS.write(0);
-  delay1Sec = millis();
+  wait1Sec = millis();
 
 } // setup()
 
@@ -112,8 +114,8 @@ void loop() {
   
   switch (actualMode) {
     case COUNTING_STOPPED:
-                if ((minutes*100 + seconds) == 0 && (millis() > delay250ms + 250)) {
-                    delay250ms = millis();
+                if ((minutes*100 + seconds) == 0 && (millis() > wait250mSec + 250)) {
+                    wait250mSec = millis();
                     walkingLed++;
                     if (walkingLed > 15) walkingLed = 0;
                     MFS.writeLeds(LED_ALL, OFF);
@@ -149,7 +151,7 @@ void loop() {
                            |  |  |  |  |      **/
                   MFS.beep(1, 1, 1, 1, 1); 
                   actualMode = COUNT_UP;
-                  delay1Sec = millis();
+                  wait1Sec = millis();
                 } else if (lastButton == BUTTON_2_SHORT_RELEASE) {
                   Serial.println("BUTTON_2_SHORT_RELEASE");
                     /**.
@@ -162,8 +164,8 @@ void loop() {
                            |  |  |  |  |      **/
                   MFS.beep(1, 1, 1, 1, 1); 
                   actualMode  = COUNT_DOWN;
-                  delay1Sec  = millis();
-                  delay250ms = millis();
+                  wait1Sec  = millis();
+                  wait250mSec = millis();
                 }
                 break;
 
@@ -184,16 +186,16 @@ void loop() {
                   MFS.writeLeds(LED_ALL, OFF);
                 } else {
                   //------ walk the LED's ----------------
-                  if (millis() > delay250ms + 250) {
-                    delay250ms = millis();
+                  if (millis() > wait250mSec + 250) {
+                    wait250mSec = millis();
                     walkingLed--;
                     if (walkingLed < 0) walkingLed = 3;
                     MFS.writeLeds(LED_ALL, OFF);
                     MFS.writeLeds((1 << walkingLed), ON); 
                   }
                   // continue counting
-                  if (millis() > (delay1Sec + 1000)) {
-                    delay1Sec = millis();
+                  if (millis() > (wait1Sec + 1000)) {
+                    wait1Sec = millis();
                     seconds++;
                   }
 
@@ -238,8 +240,8 @@ void loop() {
                   actualMode = COUNTING_STOPPED;
                 } else {
                   //------ walk the LED's ----------------
-                  if (millis() > delay250ms + 250) {
-                    delay250ms = millis();
+                  if (millis() > wait250mSec + 250) {
+                    wait250mSec = millis();
                     walkingLed++;
                     if (walkingLed > 3) walkingLed = 0;
                     MFS.writeLeds(LED_ALL, OFF); 
@@ -247,8 +249,8 @@ void loop() {
                   }
 
                   // continue counting
-                  if (millis() > (delay1Sec + 1000)) {
-                    delay1Sec = millis();
+                  if (millis() > (wait1Sec + 1000)) {
+                    wait1Sec = millis();
                     seconds--;
                   }
 
@@ -286,21 +288,23 @@ void loop() {
                   Serial.println("BUTTON_3_LONG_RELEASE");
                   actualMode = saveMode;
                   MFS.write(minutes*100 + seconds);
-                } else {                
-                  MFS.write(analogRead(POT_PIN));
-                  delay(50);
+                } else {
+                  // -------------- dempout result -----------------------      
+                  potValue = ((potValue * 10) + analogRead(POT_PIN)) / 11;
+                  MFS.write(potValue);
+                  delay(25);
                   if (saveMode == COUNT_UP) {
                     //-- walk the LED's ----
-                    if (millis() > delay250ms + 250) {
-                      delay250ms = millis();
+                    if (millis() > wait250mSec + 250) {
+                      wait250mSec = millis();
                       walkingLed--;
                       if (walkingLed < 0) walkingLed = 3;
                       MFS.writeLeds(LED_ALL, OFF);
                       MFS.writeLeds((1 << walkingLed), ON); 
                     }                  
 
-                    if (millis() > (delay1Sec + 1000)) {
-                      delay1Sec = millis();
+                    if (millis() > (wait1Sec + 1000)) {
+                      wait1Sec = millis();
                       seconds++;
                     }
 
@@ -328,16 +332,16 @@ void loop() {
                   
                   if (saveMode == COUNT_DOWN) {
                     //-- walk the LED's ----
-                    if (millis() > delay250ms + 250) {
-                      delay250ms = millis();
+                    if (millis() > wait250mSec + 250) {
+                      wait250mSec = millis();
                       walkingLed++;
                       if (walkingLed > 3) walkingLed = 0;
                       MFS.writeLeds(LED_ALL, OFF); 
                       MFS.writeLeds((1 << walkingLed), ON); 
                     }                  
 
-                    if (millis() > (delay1Sec + 1000)) {
-                      delay1Sec = millis();
+                    if (millis() > (wait1Sec + 1000)) {
+                      wait1Sec = millis();
                       seconds--;
                     }
 
@@ -404,4 +408,3 @@ void loop() {
 * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 * 
 ***************************************************************************/
-
