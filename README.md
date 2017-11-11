@@ -14,21 +14,19 @@ MultiFuncShield   - http://files.cohesivecomputing.co.uk/MultiFuncShield-Library
 <br />
 After compiling and uploading to the Arduino UNO you can use the following buttons:
 
-  Button 1:<br /> 
-      short press: Start/Stop UP-counter
-      long press : Zero counter  
+  Button 1:  
+<br />&nbsp; &nbsp; &nbsp; short press: Start/Stop UP-counter
+<br />&nbsp; &nbsp; &nbsp; long press : Zero counter  
 
+  Button 2: 
+<br />&nbsp; &nbsp; &nbsp; short press: Start/Stop DOWN-counter
+<br />&nbsp; &nbsp; &nbsp; long press : Zero counter  
 
-  Button 2:<br /> 
-      short press: Start/Stop DOWN-counter
-      long press : Zero counter  
+  Button 3: 
+<br />&nbsp; &nbsp; &nbsp; short press: read Potmeter value
+<br />&nbsp; &nbsp; &nbsp; long press : return to previous mode  
 
-
-  Button 3:<br /> 
-      short press: read Potmeter value
-      long press : return to previous mode  
-
-The program does the counting, checking buttons, lighting the LED's and reading the potentiometer <b>simultaneously</b>!
+<br />The program does the counting, checking buttons, lighting the LED's and reading the potentiometer <b>simultaneously</b>!
 <br /><br />
 See the program at work in this video https://youtu.be/4BS07XFOi9w
 <br /><br />
