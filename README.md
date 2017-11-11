@@ -14,15 +14,15 @@ MultiFuncShield   - http://files.cohesivecomputing.co.uk/MultiFuncShield-Library
 <br />
 After compiling and uploading to the Arduino UNO you can use the following buttons:
 
-  Button 1:  
+  Button 1:
 <br />&nbsp; &nbsp; &nbsp; short press: Start/Stop UP-counter
 <br />&nbsp; &nbsp; &nbsp; long press : Zero counter  
 
-  Button 2: 
+  Button 2:
 <br />&nbsp; &nbsp; &nbsp; short press: Start/Stop DOWN-counter
 <br />&nbsp; &nbsp; &nbsp; long press : Zero counter  
 
-  Button 3: 
+  Button 3:
 <br />&nbsp; &nbsp; &nbsp; short press: read Potmeter value
 <br />&nbsp; &nbsp; &nbsp; long press : return to previous mode  
 
